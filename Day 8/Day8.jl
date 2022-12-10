@@ -2,8 +2,6 @@ using Base.Cartesian
 
 input = open("Day 8\\input.txt","r");
 F = reduce(vcat,[[parse(Int,c) for c in l] for l in readlines(input)]')
-V = zeros(size(F,1), size(F,2))
-s = 0
 
 function visible(F,i_1,i_2)
     cur = F[i_1,i_2]
@@ -45,14 +43,13 @@ function view(F,i_1,i_2)
     #@show (i_1,i_2), cur, (L,R,U,D), L*R*U*D
     return L*R*U*D
 end
+
+s = 0
 @nloops 2 i F begin global s += visible(F,i_1,i_2) end
 
 m = 0
-@nloops 2 i F begin 
-    c =  view(F,i_1,i_2) 
-    
-    global m = c > m ? c : m
-end
+@nloops 2 i F begin  global m = view(F,i_1,i_2) > m ? view(F,i_1,i_2) : m end
+
 @show s;
 @show m;
 
