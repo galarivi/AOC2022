@@ -3,19 +3,17 @@ lines = readlines(input)
 
 x = [1]
 q = []
-ptr = 1
+
 for op in lines
-    # Start
     push!(q,0)
     if op[1] == 'a' push!(q,parse(Int, split(op, " ")[2])) end
 end
 
-for i in 1:length(q)
+for i in eachindex(q)
     push!(x,x[i] + q[i])
 end
 
 @show sum([i*x[i] for i in [20,60,100,140,180,220]])
-
 
 crt = [repeat([repeat(".",38)],6);]
 
